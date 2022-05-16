@@ -1,0 +1,246 @@
+<html>
+<head>
+<title>PredefinedStepDefs.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #080808;}
+.s2 { color: #0033b3;}
+.s3 { color: #067d17;}
+.s4 { color: #0037a6;}
+.s5 { color: #1750eb;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PredefinedStepDefs.java</font>
+</center></td></tr></table>
+<pre><span class="s0">// Created by Viacheslav (Slava) Skryabin 04/01/2011</span>
+<span class="s2">package </span><span class="s1">definitions;</span>
+
+<span class="s2">import </span><span class="s1">cucumber.api.java.en.Given;</span>
+<span class="s2">import </span><span class="s1">cucumber.api.java.en.Then;</span>
+<span class="s2">import </span><span class="s1">cucumber.api.java.en.When;</span>
+<span class="s2">import </span><span class="s1">org.apache.commons.io.FileUtils;</span>
+<span class="s2">import </span><span class="s1">org.openqa.selenium.*;</span>
+<span class="s2">import </span><span class="s1">org.openqa.selenium.interactions.Actions;</span>
+<span class="s2">import </span><span class="s1">org.openqa.selenium.support.ui.ExpectedConditions;</span>
+<span class="s2">import </span><span class="s1">org.openqa.selenium.support.ui.WebDriverWait;</span>
+<span class="s2">import </span><span class="s1">java.io.File;</span>
+<span class="s2">import </span><span class="s1">java.util.Date;</span>
+<span class="s2">import </span><span class="s1">java.util.Iterator;</span>
+<span class="s2">import static </span><span class="s1">org.assertj.core.api.Assertions.*;</span>
+<span class="s2">import static </span><span class="s1">support.TestContext.getDriver;</span>
+
+<span class="s2">public class </span><span class="s1">PredefinedStepDefs {</span>
+    <span class="s1">@Given(</span><span class="s3">&quot;^I open url </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iOpenUrl(String url) {</span>
+        <span class="s1">getDriver().get(url);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I resize window to (</span><span class="s4">\\</span><span class="s3">d+) and (</span><span class="s4">\\</span><span class="s3">d+)$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iResizeWindowToAnd(</span><span class="s2">int </span><span class="s1">width, </span><span class="s2">int </span><span class="s1">height) {</span>
+        <span class="s1">Dimension dimension = </span><span class="s2">new </span><span class="s1">Dimension(width, height);</span>
+        <span class="s1">getDriver().manage().window().setSize(dimension);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I wait for (</span><span class="s4">\\</span><span class="s3">d+) sec$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iWaitForSec(</span><span class="s2">int </span><span class="s1">sec) </span><span class="s2">throws </span><span class="s1">Exception {</span>
+        <span class="s1">Thread.sleep(sec * </span><span class="s5">1000</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s3">&quot;^I maximize window$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iMaximizeWindow() {</span>
+        <span class="s1">java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();</span>
+        <span class="s1">Dimension maxWindowSize = </span><span class="s2">new </span><span class="s1">Dimension((</span><span class="s2">int</span><span class="s1">) screenSize.getWidth(), (</span><span class="s2">int</span><span class="s1">) screenSize.getHeight());</span>
+        <span class="s1">getDriver().manage().window().setPosition(</span><span class="s2">new </span><span class="s1">Point(</span><span class="s5">0</span><span class="s1">,</span><span class="s5">0</span><span class="s1">));</span>
+        <span class="s1">getDriver().manage().window().setSize(maxWindowSize);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should be present$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldBePresent(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElements(By.xpath(xpath))).hasSize(</span><span class="s5">1</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not be present$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotBePresent(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElements(By.xpath(xpath))).hasSize(</span><span class="s5">0</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I wait for element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">to be present$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iWaitForElementWithXpathToBePresent(String xpath) {</span>
+        <span class="s2">new </span><span class="s1">WebDriverWait(getDriver(), </span><span class="s5">10</span><span class="s1">, </span><span class="s5">200</span><span class="s1">).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I wait for element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">to not be present$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iWaitForElementWithXpathToNotBePresent(String xpath) {</span>
+        <span class="s2">new </span><span class="s1">WebDriverWait(getDriver(), </span><span class="s5">10</span><span class="s1">, </span><span class="s5">200</span><span class="s1">).until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should be displayed$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldBeDisplayed(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isDisplayed()).isTrue();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not be displayed$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotBeDisplayed(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should be enabled$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldBeEnabled(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isEnabled()).isTrue();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should be disabled&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldBeDisabled(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isEnabled()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should be selected$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldBeSelected(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isSelected()).isTrue();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not be selected$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotBeSelected(String xpath) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).isSelected()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s3">&quot;^I type </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">into element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iTypeIntoElementWithXpath(String text, String xpath) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(xpath)).sendKeys(text);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I click on element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iClickOnElementWithXpath(String xpath) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(xpath)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I click on element using JavaScript with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iClickOnElementUsingJavaScriptWithXpath(String xpath) {</span>
+        <span class="s1">WebElement element = getDriver().findElement(By.xpath(xpath));</span>
+        <span class="s1">JavascriptExecutor executor = (JavascriptExecutor) getDriver();</span>
+        <span class="s1">executor.executeScript(</span><span class="s3">&quot;arguments[0].click();&quot;</span><span class="s1">, element);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I take screenshot$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iTakeScreenshot() </span><span class="s2">throws </span><span class="s1">Exception {</span>
+        <span class="s1">TakesScreenshot screenshotTaker = (TakesScreenshot) getDriver();</span>
+        <span class="s1">File screenshot = screenshotTaker.getScreenshotAs(OutputType.FILE);</span>
+        <span class="s1">FileUtils.copyFile(screenshot, </span><span class="s2">new </span><span class="s1">File(</span><span class="s3">&quot;target/cucumber/screenshot &quot; </span><span class="s1">+ </span><span class="s2">new </span><span class="s1">Date() + </span><span class="s3">&quot;.png&quot;</span><span class="s1">));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should have text as </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldHaveTextAs(String xpath, String text) {</span>
+        <span class="s1">String actualText = getDriver().findElement(By.xpath(xpath)).getText();</span>
+        <span class="s1">assertThat(actualText).isEqualTo(text);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not have text as </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotHaveTextAs(String xpath, String text) {</span>
+        <span class="s1">String actualText = getDriver().findElement(By.xpath(xpath)).getText();</span>
+        <span class="s1">assertThat(actualText).isNotEqualTo(text);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should contain text </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldContainText(String xpath, String text) {</span>
+        <span class="s1">String actualText = getDriver().findElement(By.xpath(xpath)).getText();</span>
+        <span class="s1">assertThat(actualText).containsIgnoringCase(text);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not contain text </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotContainText(String xpath, String text) {</span>
+        <span class="s1">String actualText = getDriver().findElement(By.xpath(xpath)).getText();</span>
+        <span class="s1">assertThat(actualText).doesNotContain(text);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should have attribute </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">as </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldHaveAttributeAs(String xpath, String attribute, String attributeValue) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).getAttribute(attribute)).isEqualTo(attributeValue);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">should not have attribute </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">as </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">elementWithXpathShouldNotHaveAttributeAs(String xpath, String attribute, String attributeValue) {</span>
+        <span class="s1">assertThat(getDriver().findElement(By.xpath(xpath)).getAttribute(attribute)).isNotEqualTo(attributeValue);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I switch to iframe with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iSwitchToIframeWithXpath(String xpath) {</span>
+        <span class="s1">getDriver().switchTo().frame(getDriver().findElement(By.xpath(xpath)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I switch to default content$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iSwitchToDefaultContent() {</span>
+        <span class="s1">getDriver().switchTo().defaultContent();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I switch to new window$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iSwitchToNewWindow() {</span>
+        <span class="s1">Iterator&lt;String&gt; iterator = getDriver().getWindowHandles().iterator();</span>
+        <span class="s1">String newWindow = iterator.next();</span>
+        <span class="s2">while</span><span class="s1">(iterator.hasNext()) {</span>
+            <span class="s1">newWindow = iterator.next();</span>
+        <span class="s1">}</span>
+        <span class="s1">getDriver().switchTo().window(newWindow);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I switch to first window$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iSwitchToFirstWindow() {</span>
+        <span class="s1">getDriver().switchTo().window(getDriver().getWindowHandles().iterator().next());</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I accept alert$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iAcceptAlert() {</span>
+        <span class="s1">getDriver().switchTo().alert().accept();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I dismiss alert$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iDismissAlert() {</span>
+        <span class="s1">getDriver().switchTo().alert().dismiss();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s3">&quot;^I clear element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iClearElementWithXpath(String xpath) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(xpath)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I should see page title as </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iShouldSeePageTitleAs(String title) {</span>
+        <span class="s1">assertThat(getDriver().getTitle()).isEqualTo(title);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I should see page title as not </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iShouldNotSeePageTitleAsNot(String title) {</span>
+        <span class="s1">assertThat(getDriver().getTitle()).isNotEqualTo(title);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I should see page title contains </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iShouldSeePageTitleContains(String title) {</span>
+        <span class="s1">assertThat(getDriver().getTitle()).contains(title);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I should see page title does not contain </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iShouldSeePageTitleDoesNotContain(String title) {</span>
+        <span class="s1">assertThat(getDriver().getTitle()).doesNotContain(title);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s3">&quot;^I scroll to the element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot; </span><span class="s3">with offset (</span><span class="s4">\\</span><span class="s3">d+)$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iScrollToTheElementWithXpathWithOffset(String xpath, </span><span class="s2">int </span><span class="s1">offset) </span><span class="s2">throws </span><span class="s1">Exception {</span>
+        <span class="s1">WebElement element = getDriver().findElement(By.xpath(xpath));</span>
+        <span class="s1">JavascriptExecutor executor = (JavascriptExecutor) getDriver();</span>
+        <span class="s1">executor.executeScript(</span><span class="s3">&quot;arguments[0].scrollIntoView(false);&quot;</span><span class="s1">, element);</span>
+        <span class="s1">executor.executeScript(</span><span class="s3">&quot;window.scrollBy(0, &quot; </span><span class="s1">+ offset + </span><span class="s3">&quot;);&quot;</span><span class="s1">, element);</span>
+        <span class="s1">Thread.sleep(</span><span class="s5">500</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s3">&quot;^I mouse over element with xpath </span><span class="s4">\&quot;</span><span class="s3">([^</span><span class="s4">\&quot;</span><span class="s3">]*)</span><span class="s4">\&quot;</span><span class="s3">$&quot;</span><span class="s1">)</span>
+    <span class="s2">public void </span><span class="s1">iMouseOverElementWithXpath(String xpath) {</span>
+        <span class="s2">new </span><span class="s1">Actions(getDriver()).moveToElement(getDriver().findElement(By.xpath(xpath))).perform();</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

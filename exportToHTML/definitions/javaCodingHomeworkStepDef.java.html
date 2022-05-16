@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>javaCodingHomeworkStepDef.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #1750eb;}
+.s4 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+javaCodingHomeworkStepDef.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">definitions;</span>
+
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.And;</span>
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.Given;</span>
+
+<span class="s0">public class </span><span class="s1">javaCodingHomeworkStepDef {</span>
+    <span class="s1">@Given(</span><span class="s2">&quot;I convert {int} foot to centimeters&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iConvertFootToCentimeters(</span><span class="s0">int </span><span class="s1">iFt) {</span>
+        <span class="s0">double </span><span class="s1">iCm = iFt * </span><span class="s3">3.48</span><span class="s1">;</span>
+        <span class="s1">System.out.println( iFt + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ </span><span class="s3">3.48 </span><span class="s1">+ </span><span class="s2">&quot; = &quot; </span><span class="s1">+ iCm);</span>
+        <span class="s1">System.out.println(iFt + </span><span class="s2">&quot; foot equals &quot; </span><span class="s1">+iCm +</span><span class="s2">&quot; centimeters&quot;</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@And(</span><span class="s2">&quot;I convert {int} US gallon to liters&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iConvertUSGallonToLiters(</span><span class="s0">int </span><span class="s1">iGl) {</span>
+        <span class="s0">double </span><span class="s1">iLtr = iGl * </span><span class="s3">3.78</span><span class="s1">;</span>
+        <span class="s1">System.out.println( iGl + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ </span><span class="s3">3.78 </span><span class="s1">+ </span><span class="s2">&quot; = &quot; </span><span class="s1">+ iLtr);</span>
+        <span class="s1">System.out.println(iGl + </span><span class="s2">&quot; gallon equals &quot; </span><span class="s1">+iLtr +</span><span class="s2">&quot; liters&quot;</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s4">/*(Formula C to F: (0°C × 9/5) + 32 = 32°F)*/</span>
+    <span class="s1">@And(</span><span class="s2">&quot;I convert {int} Celsius to Fahrenheit&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iConvertCelsiusToFahrenheit(</span><span class="s0">int </span><span class="s1">iCls) {</span>
+        <span class="s0">double </span><span class="s1">iFar = (iCls * </span><span class="s3">9 </span><span class="s1">/ </span><span class="s3">5</span><span class="s1">) +</span><span class="s3">32</span><span class="s1">;</span>
+        <span class="s1">System.out.println(iCls + </span><span class="s2">&quot; * &quot; </span><span class="s1">+ </span><span class="s3">9 </span><span class="s1">+</span><span class="s2">&quot; / &quot; </span><span class="s1">+ </span><span class="s3">5 </span><span class="s1">+ </span><span class="s2">&quot; + &quot; </span><span class="s1">+</span><span class="s3">32 </span><span class="s1">+</span><span class="s2">&quot; = &quot; </span><span class="s1">+ iFar);</span>
+        <span class="s1">System.out.println(iCls + </span><span class="s2">&quot;° Celsius equals &quot; </span><span class="s1">+iFar +</span><span class="s2">&quot;° Fahrenheit&quot;</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+
+    <span class="s1">@And(</span><span class="s2">&quot;I check if number “{int}” is odd or even&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iCheckIfNumberIsOddOrEven(</span><span class="s0">int </span><span class="s1">num1) {</span>
+        <span class="s1">{</span>
+            <span class="s0">if </span><span class="s1">(num1 % </span><span class="s3">2 </span><span class="s1">== </span><span class="s3">0</span><span class="s1">){</span>
+                <span class="s1">System.out.println(num1 + </span><span class="s2">&quot; is even number&quot;</span><span class="s1">);</span>
+            <span class="s1">}</span>
+            <span class="s0">else</span><span class="s1">{</span>
+                <span class="s1">System.out.println(num1 + </span><span class="s2">&quot; is odd number&quot;</span><span class="s1">);</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Given(</span><span class="s2">&quot;I count every day of the week&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iCountEveryDayOfTheWeek() {</span>
+        <span class="s1">String[] week = {</span><span class="s2">&quot;Monday&quot;</span><span class="s1">, </span><span class="s2">&quot;Tuesday&quot;</span><span class="s1">, </span><span class="s2">&quot;Wednesday&quot;</span><span class="s1">, </span><span class="s2">&quot;Thursday&quot;</span><span class="s1">, </span><span class="s2">&quot;Friday&quot;</span><span class="s1">, </span><span class="s2">&quot;Saturday&quot;</span><span class="s1">, </span><span class="s2">&quot;Sunday&quot;</span><span class="s1">};</span>
+        <span class="s0">for </span><span class="s1">(String element: week) {</span>
+            <span class="s1">System.out.println(element);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Given(</span><span class="s2">&quot;I want to know cost of {int} pounds of {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iWantToKnowCostOfPoundsOf(</span><span class="s0">int </span><span class="s1">iPound, String sFruit) {</span>
+    <span class="s0">double</span><span class="s1">[] iCost = {</span><span class="s3">1.2</span><span class="s1">, </span><span class="s3">1.3</span><span class="s1">, </span><span class="s3">1.4</span><span class="s1">, </span><span class="s3">1.5</span><span class="s1">,</span><span class="s3">1.6</span><span class="s1">};</span>
+    <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i= </span><span class="s3">0</span><span class="s1">; i&lt; iCost.length; i++);</span>
+    <span class="s0">switch </span><span class="s1">(sFruit) {</span>
+        <span class="s0">case </span><span class="s2">&quot;apples&quot;</span><span class="s1">: </span><span class="s0">double </span><span class="s1">acost = iCost[</span><span class="s3">0</span><span class="s1">]*iPound;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Cost of apples is &quot; </span><span class="s1">+ acost + </span><span class="s2">&quot;$&quot;</span><span class="s1">);</span><span class="s0">break</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">&quot;cherries&quot;</span><span class="s1">: </span><span class="s0">double </span><span class="s1">ccost = iCost[</span><span class="s3">1</span><span class="s1">]*iPound;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Cost of cherries is &quot; </span><span class="s1">+ ccost + </span><span class="s2">&quot;$&quot;</span><span class="s1">);</span><span class="s0">break</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">&quot;plums&quot;</span><span class="s1">: </span><span class="s0">double </span><span class="s1">pcost = iCost[</span><span class="s3">2</span><span class="s1">]*iPound;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Cost of plums is &quot; </span><span class="s1">+ pcost + </span><span class="s2">&quot;$&quot;</span><span class="s1">);</span><span class="s0">break</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">&quot;grapefruits&quot;</span><span class="s1">: </span><span class="s0">double </span><span class="s1">gcost = iCost[</span><span class="s3">3</span><span class="s1">]*iPound;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Cost of grapefruits is &quot; </span><span class="s1">+ gcost + </span><span class="s2">&quot;$&quot;</span><span class="s1">);</span><span class="s0">break</span><span class="s1">;</span>
+        <span class="s0">case </span><span class="s2">&quot;oranges&quot;</span><span class="s1">: </span><span class="s0">double </span><span class="s1">ocost = iCost[</span><span class="s3">4</span><span class="s1">]*iPound;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Cost of oranges is &quot; </span><span class="s1">+ ocost + </span><span class="s2">&quot;$&quot;</span><span class="s1">);</span><span class="s0">break</span><span class="s1">;</span>
+        <span class="s0">default</span><span class="s1">: System.out.println(</span><span class="s2">&quot;This product is unavailable&quot;</span><span class="s1">);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Given(</span><span class="s2">&quot;I receive {int} percent on my test&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iReceivePercentOnMyTest(</span><span class="s0">int </span><span class="s1">Result) {</span>
+
+            <span class="s0">if </span><span class="s1">(Result &gt; </span><span class="s3">90</span><span class="s1">) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;You passed with Grade A&quot;</span><span class="s1">);</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(Result &lt;= </span><span class="s3">89 </span><span class="s1">&amp;&amp; Result &gt;= </span><span class="s3">80</span><span class="s1">) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;You passed with Grade B&quot;</span><span class="s1">);</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(Result &lt;= </span><span class="s3">79 </span><span class="s1">&amp;&amp; Result &gt;= </span><span class="s3">70</span><span class="s1">) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;You passed with Grade C&quot;</span><span class="s1">);</span>
+            <span class="s1">} </span><span class="s0">else if </span><span class="s1">(Result &lt;= </span><span class="s3">69 </span><span class="s1">&amp;&amp; Result &gt;= </span><span class="s3">60</span><span class="s1">) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;You passed with Grade D&quot;</span><span class="s1">);</span>
+            <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;You passed with Grade F&quot;</span><span class="s1">);</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+</pre>
+</body>
+</html>

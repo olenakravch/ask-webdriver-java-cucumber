@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>webDriver.feature</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #080808;}
+.s2 { color: #0033b3;}
+.s3 { color: #080808;}
+.s4 { color: #9e880d;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+webDriver.feature</font>
+</center></td></tr></table>
+<pre><span class="s0">#Exercise WebDriver Practice</span>
+<span class="s0"># Epic: https://jira.portnov.com/browse/ACA-697</span>
+<span class="s0">#Author: Olena Kravchenko</span>
+
+  <span class="s2">Feature</span><span class="s1">: </span><span class="s3">WebDriver Practice Exercises</span>
+    <span class="s2">Background</span><span class="s1">:</span>
+      <span class="s2">Given </span><span class="s3">I navigate &quot;quote&quot;</span>
+    <span class="s4">@webdriver1</span>
+    <span class="s2">Scenario</span><span class="s1">: </span><span class="s3">Open URL using site name</span>
+      <span class="s0">#Given I navigate &quot;quote&quot;</span>
+      <span class="s2">And </span><span class="s3">I print page details</span>
+      <span class="s2">And </span><span class="s3">I wait for 3 sec</span>
+
+      <span class="s4">@webdriver2</span>
+      <span class="s2">Scenario</span><span class="s1">: </span><span class="s3">Email field verification</span>
+        <span class="s2">When </span><span class="s3">I type &quot;abc&quot; into email field</span>
+        <span class="s2">And </span><span class="s3">I click Submit button</span>
+        <span class="s2">And </span><span class="s3">I wait for 2 sec</span>
+        <span class="s2">Then </span><span class="s3">error message &quot;Please enter a valid email address.&quot; should be displayed</span>
+        <span class="s2">When </span><span class="s3">I clear input text from email field</span>
+        <span class="s2">And </span><span class="s3">I wait for 2 sec</span>
+        <span class="s2">Then </span><span class="s3">error message &quot;This field is required.&quot; should be displayed</span>
+        <span class="s2">When </span><span class="s3">I type &quot;olena@gmail.com&quot; into email field</span>
+        <span class="s2">And </span><span class="s3">I click Submit button</span>
+        <span class="s2">Then </span><span class="s3">error message &quot;Please enter a valid email address.&quot; should not be displayed</span>
+        <span class="s2">And </span><span class="s3">I wait for 2 sec</span>
+
+</pre>
+</body>
+</html>

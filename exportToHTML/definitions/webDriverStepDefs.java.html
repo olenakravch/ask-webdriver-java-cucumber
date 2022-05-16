@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>webDriverStepDefs.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+.s3 { color: #8c8c8c; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+webDriverStepDefs.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">definitions;</span>
+
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.And;</span>
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.Given;</span>
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.Then;</span>
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.When;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.By;</span>
+
+<span class="s0">import static </span><span class="s1">org.assertj.core.api.Assertions.assertThat;</span>
+<span class="s0">import static </span><span class="s1">support.TestContext.getDriver;</span>
+
+
+<span class="s0">public class </span><span class="s1">webDriverStepDefs {</span>
+    <span class="s1">@Given(</span><span class="s2">&quot;I navigate {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iNavigate(String sUrl) {</span>
+        <span class="s0">switch </span><span class="s1">(sUrl) {</span>
+            <span class="s0">case </span><span class="s2">&quot;google&quot;</span><span class="s1">:</span>
+                <span class="s1">getDriver().get(</span><span class="s2">&quot;https://www.google.com/&quot;</span><span class="s1">);</span>
+                <span class="s3">//break;</span>
+            <span class="s0">case </span><span class="s2">&quot;swisscows&quot;</span><span class="s1">:</span>
+                <span class="s1">getDriver().get(</span><span class="s2">&quot;https://swisscows.com&quot;</span><span class="s1">);</span>
+                <span class="s3">//break;</span>
+            <span class="s0">case </span><span class="s2">&quot;startpage&quot;</span><span class="s1">:</span>
+                <span class="s1">getDriver().get(</span><span class="s2">&quot;https://www.startpage.com&quot;</span><span class="s1">);</span>
+                <span class="s3">//break;</span>
+            <span class="s0">case </span><span class="s2">&quot;ekoru&quot;</span><span class="s1">:</span>
+                <span class="s1">getDriver().get(</span><span class="s2">&quot;https://ekoru.org/&quot;</span><span class="s1">);</span>
+                <span class="s3">//break;</span>
+            <span class="s0">case </span><span class="s2">&quot;quote&quot;</span><span class="s1">:</span>
+                <span class="s1">getDriver().get(</span><span class="s2">&quot;https://skryabin.com/market/quote.html&quot;</span><span class="s1">);</span>
+            <span class="s0">default</span><span class="s1">:</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;No url found&quot;</span><span class="s1">);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@And(</span><span class="s2">&quot;I print page details&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iPrintPageDetails() {</span>
+        <span class="s1">System.out.println(getDriver().getTitle());</span>
+        <span class="s1">System.out.println(getDriver().getCurrentUrl());</span>
+        <span class="s1">System.out.println(getDriver().getWindowHandle());</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I type {string} into email field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeIntoEmailField(String sEmail) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).sendKeys(sEmail);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@And(</span><span class="s2">&quot;I click Submit button&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickSubmitButton() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//button[@id='formSubmit']&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;error message {string} should be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageShouldBeDisplayed(String sMessage) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='email-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">assertThat(sActualMessage.equals((sMessage)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I clear input text from email field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClearInputTextFromEmailField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;error message {string} should not be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageShouldNotBeDisplayed(String sMessage) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='email-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">assertThat(sActualMessage.isBlank());</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

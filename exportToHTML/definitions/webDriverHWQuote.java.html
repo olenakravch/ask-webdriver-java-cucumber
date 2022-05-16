@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>webDriverHWQuote.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #0033b3;}
+.s1 { color: #080808;}
+.s2 { color: #067d17;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+webDriverHWQuote.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">definitions;</span>
+
+<span class="s0">import </span><span class="s1">cucumber.api.java.en.*;</span>
+<span class="s0">import </span><span class="s1">org.assertj.core.api.Assertions;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.By;</span>
+
+<span class="s0">import static </span><span class="s1">org.assertj.core.api.AssertionsForClassTypes.assertThat;</span>
+<span class="s0">import static </span><span class="s1">org.testng.Assert.assertEquals;</span>
+<span class="s0">import static </span><span class="s1">support.TestContext.getDriver;</span>
+
+<span class="s0">public class </span><span class="s1">webDriverHWQuote {</span>
+    <span class="s1">@Given(</span><span class="s2">&quot;I navigate  to {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iNavigateTo(String sUrl) {</span>
+        <span class="s1">getDriver().get(</span><span class="s2">&quot;https://skryabin.com/market/quote.html&quot;</span><span class="s1">);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I click in name field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickInNameField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='name']&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;new window should be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">newWindowShouldBeDisplayed() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//span[@id='ui-id-1']&quot;</span><span class="s1">));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I type in First Name {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInFirstName(String sFirstName) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='firstName']&quot;</span><span class="s1">)).sendKeys(sFirstName);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I type in Middle Name {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInMiddleName(String sMiddleName) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='middleName']&quot;</span><span class="s1">)).sendKeys(sMiddleName);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I type in Last Name {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInLastName(String sLastName) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='lastName']&quot;</span><span class="s1">)).sendKeys(sLastName);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@And(</span><span class="s2">&quot;I click Save button&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickSaveButton() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//span[contains(text(),'Save')]&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;Name {string} should be fully displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">nameShouldBeFullyDisplayed(String sFullName) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='name']&quot;</span><span class="s1">));</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='name']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">assertThat(sActualMessage.equals((sFullName)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I type {string} in username field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInUsernameField(String sUsername) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='username']&quot;</span><span class="s1">)).sendKeys(sUsername);</span>
+
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I click button Submit&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickButtonSubmit() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//button[@id='formSubmit']&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;error message under username field {string} should be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageUnderUsernameFieldShouldBeDisplayed(String sError) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='username-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">Assertions.assertThat(sActualMessage.equals((sError)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I clear input text from username field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClearInputTextFromUsernameField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@But(</span><span class="s2">&quot;error message under username field {string} should not be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageUnderUsernameFieldShouldNotBeDisplayed(String sError) {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='username-error']&quot;</span><span class="s1">)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I type into email field {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeIntoEmailField(String sEmail) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).sendKeys(sEmail);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;error message should be displayed as {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageShouldBeDisplayedAs(String sError) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='email-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">Assertions.assertThat(sActualMessage.equals((sError)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I clean up email field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iCleanUpEmailField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;error message should not be displayed as {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageShouldNotBeDisplayedAs(String sError) {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='email-error']&quot;</span><span class="s1">)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I type {string} in password filed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInPasswordFiled(String sPassword) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='password']&quot;</span><span class="s1">)).sendKeys(sPassword);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;password error message should be displayed as {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">passwordErrorMessageShouldBeDisplayedAs(String sError) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='password-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">Assertions.assertThat(sActualMessage.equals((sError)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I clean up password field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iCleanUpPasswordField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='password']&quot;</span><span class="s1">)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;password error message should not be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">passwordErrorMessageShouldNotBeDisplayed() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='password-error']&quot;</span><span class="s1">)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@When(</span><span class="s2">&quot;I click on password&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickOnPassword() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='email']&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;confirm password field is disabled&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">confirmPasswordFieldIsDisabled() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='confirmPassword']&quot;</span><span class="s1">)).isEnabled()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;confirm password is enabled&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">confirmPasswordIsEnabled() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='confirmPassword']&quot;</span><span class="s1">)).isEnabled());</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I type {string} in confirm password field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iTypeInConfirmPasswordField(String sConfPassword) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='confirmPassword']&quot;</span><span class="s1">)).sendKeys(sConfPassword);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;confirm password display error {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">confirmPasswordDisplayError(String sConfPassword) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='confirmPassword']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">Assertions.assertThat(sActualMessage.equals((sConfPassword)));</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I clean confirm password field&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iCleanConfirmPasswordField() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='confirmPassword']&quot;</span><span class="s1">)).clear();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;{string} error message should be displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">errorMessageShouldBeDisplayed(String sPrPol) {</span>
+        <span class="s1">String sActualMessage = getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='agreedToPrivacyPolicy-error']&quot;</span><span class="s1">)). getText();</span>
+        <span class="s1">System.out.println(sActualMessage);</span>
+        <span class="s1">Assertions.assertThat(sActualMessage.equals((sPrPol)));</span>
+
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;I click agree to PP&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iClickAgreeToPP() {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@name='agreedToPrivacyPolicy']&quot;</span><span class="s1">)).click();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;PP error message is not displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">ppErrorMessageIsNotDisplayed() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='agreedToPrivacyPolicy-error']&quot;</span><span class="s1">)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@But(</span><span class="s2">&quot;confirm password error message is not displayed&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">confirmPasswordErrorMessageIsNotDisplayed() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//label[@id='confirmPassword-error']&quot;</span><span class="s1">)).isDisplayed()).isFalse();</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@And(</span><span class="s2">&quot;I confirm {string} {string} {string} is displayed as Full Name {string}&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">iConfirmIsDisplayedAsFullName(String sFirstName, String sMiddleName, String sLastName, String sFullName) {</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='firstName']&quot;</span><span class="s1">)).sendKeys(sFirstName);</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='middleName']&quot;</span><span class="s1">)).sendKeys(sMiddleName);</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//input[@id='lastName']&quot;</span><span class="s1">)).sendKeys(sLastName);</span>
+        <span class="s1">getDriver().findElement(By.xpath(</span><span class="s2">&quot;//span[contains(text(),'Save')]&quot;</span><span class="s1">)).click();</span>
+        <span class="s1">String sActualName = sFirstName +</span><span class="s2">&quot; &quot;</span><span class="s1">+ sMiddleName + </span><span class="s2">&quot; &quot; </span><span class="s1">+ sLastName;</span>
+        <span class="s1">System.out.println(</span><span class="s2">&quot;Actual Name is &quot; </span><span class="s1">+ sActualName);</span>
+        <span class="s1">System.out.println(</span><span class="s2">&quot;Expected Name is &quot; </span><span class="s1">+ sFullName);</span>
+        <span class="s1">assertEquals(sActualName, sFullName);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Then(</span><span class="s2">&quot;confirmation window appears&quot;</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">confirmationWindowAppears() {</span>
+        <span class="s1">Assertions.assertThat(getDriver().findElement(By.xpath(</span><span class="s2">&quot;//legend[contains(text(),'Submitted Application')]&quot;</span><span class="s1">)).isDisplayed());</span>
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

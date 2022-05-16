@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>webDriverHW.feature</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #8c8c8c; font-style: italic;}
+.s1 { color: #080808;}
+.s2 { color: #0033b3;}
+.s3 { color: #080808;}
+.s4 { color: #9e880d;}
+</style>
+</head>
+<body bgcolor="#ffffff">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+webDriverHW.feature</font>
+</center></td></tr></table>
+<pre><span class="s0">#Exercise WebDriver Practice</span>
+<span class="s0"># Application: Quote https://skryabin.com/market/quote.html</span>
+<span class="s0">#Author: Olena Kravchenko</span>
+
+<span class="s2">Feature</span><span class="s1">: </span><span class="s3">WebDriver full Quote registration</span>
+
+  <span class="s2">Background</span><span class="s1">:</span>
+    <span class="s2">Given </span><span class="s3">I navigate  to &quot;quote&quot;</span>
+
+  <span class="s4">@wdquote1</span>
+  <span class="s2">Scenario</span><span class="s1">: </span><span class="s3">Name input verification</span>
+    <span class="s2">When </span><span class="s3">I click in name field</span>
+    <span class="s2">And </span><span class="s3">I wait for 2 sec</span>
+      <span class="s0">#Then new window should be displayed</span>
+      <span class="s0">#Then I type in First Name &quot;Olena&quot;</span>
+      <span class="s0">#Then I type in Middle Name &quot;Lena&quot;</span>
+      <span class="s0">#Then I type in Last Name &quot;Kravch&quot;</span>
+      <span class="s0">#And I click Save button</span>
+    <span class="s2">And </span><span class="s3">I confirm &quot;Olena&quot; &quot;Lena&quot; &quot;Kravch&quot; is displayed as Full Name &quot;Olena Lena Kravch&quot;</span>
+      <span class="s0">#Then Name &quot;Olena Lena Kravch&quot; should be fully displayed</span>
+      
+     <span class="s0"># @wdquote2</span>
+      <span class="s0">#Scenario: Username input validation</span>
+    <span class="s2">When </span><span class="s3">I type &quot;a&quot; in username field</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message under username field &quot;Please enter at least 2 characters.&quot; should be displayed</span>
+    <span class="s2">When </span><span class="s3">I clear input text from username field</span>
+    <span class="s2">Then </span><span class="s3">error message under username field &quot;This field is required.&quot; should be displayed</span>
+    <span class="s2">Then </span><span class="s3">I type &quot;olena&quot; in username field</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">But </span><span class="s3">error message under username field &quot;This field is required.&quot; should not be displayed</span>
+
+       <span class="s0"># @wdquote3</span>
+        <span class="s0">#Scenario: Email input validation</span>
+    <span class="s2">When </span><span class="s3">I type into email field &quot;abc&quot;</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message should be displayed as &quot;Please enter a valid email address.&quot;</span>
+    <span class="s2">When </span><span class="s3">I clean up email field</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message should be displayed as &quot;This field is required.&quot;</span>
+    <span class="s2">When </span><span class="s3">I type into email field &quot;abc.com&quot;</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message should be displayed as &quot;Please enter a valid email address.&quot;</span>
+    <span class="s2">Then </span><span class="s3">I clean up email field</span>
+    <span class="s2">When </span><span class="s3">I type into email field &quot;abc@@com&quot;</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message should be displayed as &quot;Please enter a valid email address.&quot;</span>
+    <span class="s2">Then </span><span class="s3">I clean up email field</span>
+    <span class="s2">When </span><span class="s3">I type into email field &quot;olena@gmail.com&quot;</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">error message should not be displayed as &quot;Please enter a valid email address.&quot;</span>
+
+         <span class="s0"># @wdquote4</span>
+          <span class="s0">#Scenario: Password input validation</span>
+    <span class="s2">When </span><span class="s3">I type &quot;1234&quot; in password filed</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">password error message should be displayed as &quot;Please enter at least 5 characters.&quot;</span>
+    <span class="s2">Then </span><span class="s3">I clean up password field</span>
+    <span class="s2">Then </span><span class="s3">password error message should be displayed as &quot;This field is required.&quot;</span>
+    <span class="s2">When </span><span class="s3">I type &quot;12345&quot; in password filed</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+    <span class="s2">Then </span><span class="s3">password error message should not be displayed</span>
+
+
+            <span class="s0">#@wdquote5</span>
+            <span class="s0">#Scenario: Confirm Password input validation</span>
+              <span class="s0">#When I click on password</span>
+              <span class="s0">#Then confirm password field is disabled</span>
+             <span class="s0"># Then I type &quot;12345&quot; in password filed</span>
+    <span class="s2">Then </span><span class="s3">confirm password is enabled</span>
+    <span class="s2">Then </span><span class="s3">I type &quot;1234&quot; in confirm password field</span>
+    <span class="s2">Then </span><span class="s3">confirm password display error &quot;Please enter at least 5 characters.&quot;</span>
+    <span class="s2">Then </span><span class="s3">I clean confirm password field</span>
+    <span class="s2">Then </span><span class="s3">I type &quot;123456&quot; in confirm password field</span>
+    <span class="s2">Then </span><span class="s3">confirm password display error &quot;Passwords do not match!&quot;</span>
+    <span class="s2">Then </span><span class="s3">I clean confirm password field</span>
+    <span class="s2">Then </span><span class="s3">I type &quot;12345&quot; in confirm password field</span>
+    <span class="s2">Then </span><span class="s3">I click button Submit</span>
+
+  <span class="s0">#@wdquote6</span>
+              <span class="s0">#Scenario: Privacy Policy required field validation</span>
+    <span class="s2">When </span><span class="s3">I click Submit button</span>
+    <span class="s2">Then </span><span class="s3">&quot;- Must check!&quot; error message should be displayed</span>
+    <span class="s2">Then </span><span class="s3">I click agree to PP</span>
+    <span class="s2">Then </span><span class="s3">PP error message is not displayed</span>
+    <span class="s2">Then </span><span class="s3">I click Submit button</span>
+    <span class="s2">Then </span><span class="s3">confirmation window appears</span>
+
+
+</pre>
+</body>
+</html>
